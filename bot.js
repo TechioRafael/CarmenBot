@@ -1,0 +1,89 @@
+
+const fs = require('fs');
+//Dependência
+const Discord = require("discord.js");
+//Cliente
+const client = new Discord.Client();
+//Requerimento do Token
+const { prefix, token } = require('./config.json');
+
+
+client.commands = new Discord.Collection();
+const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
+
+//Adição da biblioteca jimp para edição de imagens (usada na mensagem de boas vindas)
+const jimp = require('jimp');
+
+for (const file of commandFiles) {
+	const command = require(`./commands/${file}`);
+	client.commands.set(command.name, command);
+}
+
+//Quando o bot é startado
+client.on("ready", ()=>{
+    console.log(`Bot foi iniciado`);
+    // client.user.setActivity(`Olá! Eu sou Carmen e estou aqui para ajuda-los em suas tarefas diárias. Em breve, poderemos interagir juntos, INFEERNO!`);
+    client.user.setActivity(`Olá! Eu sou Carmen e estou aqui para ajuda-los em suas tarefas diárias. Em breve, poderemos interagir juntos, INFEERNO!`);
+});
+
+//Quando o bot é adicionado em um novo servidor
+client.on("guildCreate", guild =>{
+    console.log(`O bot entrou no servidor: ${guild.name} (id:${guild.id}). População: ${guild.memberCount} membros!`);
+});
+
+//Quando o bot é excluido do servidor
+client.on("guildDelete", guild =>{
+    console.log(`O bot foi removido do servidor: ${guild.name} (id: ${guild.id})`);
+})
+
+//Quando um membro é adicionado ao servidor
+client.on("guildMemberAdd", async member =>{
+    let fonte = await jimp.loadFont(jimp.FONT_SANS_32_BLACK);
+    let mask = await jimp.read('imagens/mascara.png');
+    let fundo = await jimp.read('imagens/fundo.png');
+
+    jimp.read(member.displayAvatarURL).then(avatar =>{
+        avatar.resize(130, 130);
+        mask.resize(130, 130);
+
+        avatar.mask(mask);
+        fundo.print(fonte, 170, 175, member.username);
+        fundo.composite(avatar, 20, 60).write('imagens/BoasVindas.png');
+        message.channel.send(``, {files: ["imagens/BoasVindas.png"]});
+    }).catch(err =>{
+        console.log('erro ao carregar a imagem');
+    });
+})
+
+//Quando uma mensagem é enviada
+client.on("message", async message =>{
+    if (!message.content.startsWith(prefix) || message.author.bot) return;
+
+    //Tratamento do texto recebido
+        
+    const args = message.content.slice(prefix.length).split(/ +/);
+    const commandName = args.shift().toLowerCase();
+    const command = client.commands.get(commandName);
+
+    if (!client.commands.has(commandName)) return;
+
+    if (command.args && !args.length) {
+		let reply = `Você não passou argumentos suficientes, ${message.author}!`;
+
+		if (command.usage) {
+			reply += `\nO uso correto é: \`${prefix}${command.name} ${command.usage}\``;
+		}
+
+		return message.channel.send(reply);
+    }
+    try {
+        command.execute(message, args);
+    } catch (error) {
+        console.error(error);
+        message.reply('Ocorreu um erro ao tentar executar esse comando!');
+    }
+        
+});
+
+//Setando Token
+client.login(token);
