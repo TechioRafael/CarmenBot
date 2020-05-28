@@ -1,7 +1,8 @@
 const Discord = require("discord.js");
 module.exports = {
 	name: 'carmen',
-	description: 'Retorna um quadrinho bonitinho',
+    description: 'Retorna um quadrinho bonitinho com informações sobre mim',
+    only_dev: false,
 	execute(message, args) {
         const embed = new Discord.MessageEmbed()
         .setColor('#FFA500')

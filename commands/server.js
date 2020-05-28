@@ -1,7 +1,8 @@
 const Discord = require("discord.js");
 module.exports = {
 	name: 'server',
-	description: 'Retorno algumas coisinhas sobre o server',
+	description: 'Retorna algumas coisinhas sobre o server',
+	only_dev: false,
 	execute(message, args) {
 		const embed = new Discord.MessageEmbed()
 		.setColor('#FFA500')

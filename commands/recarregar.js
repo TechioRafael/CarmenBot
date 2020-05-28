@@ -1,6 +1,7 @@
 module.exports = {
 	name: 'recarregar',
 	description: 'Recarrega um comando',
+	only_dev: true,
 	execute(message, args) {
 		if (!args.length) return message.channel.send(`Tu não me passou nenhum comando para ser recarregado, ${message.author}!`);
 		const commandName = args[0].toLowerCase();

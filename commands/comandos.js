@@ -6,6 +6,7 @@ module.exports = {
 	aliases: ['commands'],
 	usage: '[nome do comando]',
 	cooldown: 5,
+	only_dev: false,
 	execute(message, args) {
 		const data = [];
 		const { commands } = message.client;
@@ -14,7 +15,9 @@ module.exports = {
 		if (!args.length) {
 			embed.setTitle('Comandos')
 			.setDescription('Aqui vai uma lista com todos os meus comandos:');
-			commands.map(command => embed.addField( command.name, command.description));
+			commands.map(command => {
+				if(!command.only_dev)embed.addField( command.name, command.description);
+			});
 			embed.addField(`Quer saber sobre um comando específico?`, `Você pode digitar \`${prefix}comandos [nome do comando]\` para pedir informações sobre um comando específico!`);
 
 			return message.channel.send(embed)

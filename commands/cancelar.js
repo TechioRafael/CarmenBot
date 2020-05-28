@@ -2,6 +2,7 @@ module.exports = {
 	name: 'cancelar',
     description: 'Cancela alguém do server por motivos completamente plausíveis',
     usage: '<usuario>',
+    only_dev: false,
 	execute(message, args) {
         if (!message.mentions.users.size) {
             return message.channel.send(`Você precisa mencionar alguém com "@" para ser cancelado!`);
