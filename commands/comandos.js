@@ -1,4 +1,5 @@
 const { prefix } = require('../config.json');
+const Discord = require("discord.js");
 module.exports = {
 	name: 'comandos',
 	description: 'Faz uma lista de todos os comandos',
@@ -9,12 +10,14 @@ module.exports = {
 		const data = [];
 		const { commands } = message.client;
 
+		const embed = new Discord.MessageEmbed().setColor('#FFA500').setFooter("Carmenbot - Rafael Techio");
 		if (!args.length) {
-			data.push('Aqui vai uma lista com todos os meus comandos:\n');
-			data.push(commands.map(command => command.name + "\t-\t" + command.description).join('\n'));
-			data.push(`\n\nVocê pode digitar \`${prefix}comandos [nome do comando]\` para pedir informações sobre um comando específico!`);
+			embed.setTitle('Comandos')
+			.setDescription('Aqui vai uma lista com todos os meus comandos:');
+			commands.map(command => embed.addField( command.name, command.description));
+			embed.addField(`Quer saber sobre um comando específico?`, `Você pode digitar \`${prefix}comandos [nome do comando]\` para pedir informações sobre um comando específico!`);
 
-			return message.channel.send(data, { split: true })
+			return message.channel.send(embed)
 				
 		}else{
 			const name = args[0].toLowerCase();
@@ -24,15 +27,15 @@ module.exports = {
 				return message.reply('Não consegui entender!');
 			}
 
-			data.push(` - Nome: ${command.name}`);
+			embed.setTitle(`${command.name}`);
 
-			if (command.aliases) data.push(` - Aliases:  ${command.aliases.join(', ')}`);
-			if (command.description) data.push(` - Descrição: ${command.description}`);
-			if (command.usage) data.push(` - Uso de argumentos ${prefix}${command.name} ${command.usage}`);
+			if (command.aliases) embed.addField(`Aliases:`,`${command.aliases.join(', ')}`);
+			if (command.description) embed.addField(`Descrição: `,`${command.description}`);
+			if (command.usage) embed.addField(`Uso de argumentos`,`${prefix}${command.name} ${command.usage}`);
 
-			data.push(` - Cooldown: ${command.cooldown || 3} segundo(s)`);
+			embed.addField(`Cooldown (s):`,`${command.cooldown || 3}`);
 
-			message.channel.send(data, { split: true });
+			message.channel.send(embed);
 		}
 	},
 };

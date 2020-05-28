@@ -29,6 +29,25 @@ client.on("ready", ()=>{
 //Quando o bot é adicionado em um novo servidor
 client.on("guildCreate", guild =>{
     console.log(`O bot entrou no servidor: ${guild.name} (id:${guild.id}). População: ${guild.memberCount} membros!`);
+    const exampleEmbed = new Discord.MessageEmbed()
+	.setColor('#FFA500')
+	.setTitle('CarmenBot')
+	.setURL('https://discord.js.org/')
+	.setAuthor('Rafael techio', 'blob:https://web.whatsapp.com/31fb7077-3290-4b3e-80a2-c413946abfd3', 'https://twitter.com/TechioT_')
+	.setDescription('Olá! Eu sou Carmen e estou aqui para ajuda-los em suas tarefas diárias. Em breve, poderemos interagir juntos, INFEERNO')
+	.setThumbnail('https://cdn.discordapp.com/avatars/704713721133400094/10ed29f681db4c97de51d7c39287a56b.png')
+	.addFields(
+		{ name: 'Regular field title', value: 'Some value here' },
+		{ name: '\u200B', value: '\u200B' },
+		{ name: 'Inline field title', value: 'Some value here', inline: true },
+		{ name: 'Inline field title', value: 'Some value here', inline: true },
+	)
+	.addField('Inline field title', 'Some value here', true)
+	.setImage('https://i.imgur.com/wSTFkRM.png')
+	.setTimestamp()
+	.setFooter('Some footer text here', 'https://i.imgur.com/wSTFkRM.png');
+
+channel.send(exampleEmbed);
 });
 
 //Quando o bot é excluido do servidor
