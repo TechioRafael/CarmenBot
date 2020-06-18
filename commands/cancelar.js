@@ -13,7 +13,7 @@ module.exports = {
         )
 
     
-        const avatarList = message.mentions.users.map(user => {
+        const cancelar = message.mentions.users.map(user => {
             return message.channel.send(`Cancelado do dia: ${user.username} por ser ${motivos[Math.floor(Math.random() * motivos.length)]}`);
         });
 	},

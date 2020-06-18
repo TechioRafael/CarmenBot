@@ -22,8 +22,8 @@ for (const file of commandFiles) {
 //Quando o bot é startado
 client.on("ready", ()=>{
     console.log(`Bot foi iniciado`);
-    // client.user.setActivity(`Olá! Eu sou Carmen e estou aqui para ajuda-los em suas tarefas diárias. Em breve, poderemos interagir juntos, INFEERNO!`);
-    client.user.setActivity(`Olá! Eu sou Carmen e estou aqui para ajuda-los em suas tarefas diárias. Em breve, poderemos interagir juntos, INFEERNO!`);
+    //client.user.setActivity(`Olá! Eu sou Carmen e estou aqui para ajuda-los em suas tarefas diárias. Em breve, poderemos interagir juntos, INFEERNO!`);
+    client.user.setActivity(`Olha p oclin 😎`);
 });
 
 //Quando o bot é adicionado em um novo servidor
@@ -57,21 +57,23 @@ client.on("guildDelete", guild =>{
 
 //Quando um membro é adicionado ao servidor
 client.on("guildMemberAdd", async member =>{
-    let fonte = await jimp.loadFont(jimp.FONT_SANS_32_BLACK);
-    let mask = await jimp.read('imagens/mascara.png');
-    let fundo = await jimp.read('imagens/fundo.png');
+    const channel = member.guild.channels.cache.find(ch => ch.name === 'geral');
+    // let fonte = await jimp.loadFont(jimp.FONT_SANS_32_BLACK);
+    // let mask = await jimp.read('imagens/mascara.png');
+    // let fundo = await jimp.read('imagens/fundo.png');
 
-    jimp.read(member.displayAvatarURL).then(avatar =>{
-        avatar.resize(130, 130);
-        mask.resize(130, 130);
+    // jimp.read(member.displayAvatarURL).then(avatar =>{
+    //     avatar.resize(130, 130);
+    //     mask.resize(130, 130);
 
-        avatar.mask(mask);
-        fundo.print(fonte, 170, 175, member.username);
-        fundo.composite(avatar, 20, 60).write('imagens/BoasVindas.png');
-        message.channel.send(``, {files: ["imagens/BoasVindas.png"]});
-    }).catch(err =>{
-        console.log('erro ao carregar a imagem');
-    });
+    //     avatar.mask(mask);
+    //     fundo.print(fonte, 170, 175, member.username);
+    //     fundo.composite(avatar, 20, 60).write('imagens/BoasVindas.png');
+    //     channel.send(``, {files: ["imagens/BoasVindas.png"]});
+    // }).catch(err =>{
+    //     console.log('erro ao carregar a imagem '+err);
+    // });
+    channel.send("oi "+ member.username);
 })
 
 //Quando uma mensagem é enviada
@@ -86,17 +88,9 @@ client.on("message", async message =>{
 
     if (!client.commands.has(commandName)) return;
 
-    if (command.args && !args.length) {
-		let reply = `Você não passou argumentos suficientes, ${message.author}!`;
-
-		if (command.usage) {
-			reply += `\nO uso correto é: \`${prefix}${command.name} ${command.usage}\``;
-		}
-
-		return message.channel.send(reply);
-    }
     try {
         command.execute(message, args);
+        console.log("Comando <"+commandName+"> executado por <"+message.author.username+"> no servidor <"+message.guild.name+"> no canal <"+message.channel+">");
     } catch (error) {
         console.error(error);
         message.reply('Ocorreu um erro ao tentar executar esse comando!');

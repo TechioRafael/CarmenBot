@@ -2,7 +2,7 @@ const Discord = require("discord.js");
 module.exports = {
 	name: 'user',
     description: 'Retorna algumas informações dos usuários que tu me passar',
-    usage: '<usuario 1> <usuario 2>',
+    usage: '<usuario 1> <usuario 2> ...',
     only_dev: false,
 	execute(message, args) {
         const embed = new Discord.MessageEmbed().setColor('#FFA500').setFooter("Carmenbot - Rafael Techio");
