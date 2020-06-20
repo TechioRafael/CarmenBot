@@ -2,6 +2,7 @@ module.exports = {
 	name: 'args',
 	description: 'Digo quais são os argumentos que tu me passou',
 	usage: '<argumento 1> <argumento 2> ...',
+	tag: 'utilidade',
 	only_dev: true,
 	execute(message, args) {
 		if (!args.length) {

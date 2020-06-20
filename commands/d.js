@@ -4,6 +4,7 @@ module.exports = {
     description: 'Rola um dado que gera um número aleatório com base ',
     usage: '!d <lados (valor padrão 6)>',
     only_dev: false,
+    tag: 'utilidade',
 	execute(message, args) {
         const embed = new Discord.MessageEmbed()
         .setColor('#FFA500')
@@ -11,7 +12,7 @@ module.exports = {
         
         var lados;
         if (!args.length || isNaN(parseInt(args[0]))) {
-            lados = 4;
+            lados = 20;
         }else{
             lados = parseInt(args[0]);
         }
