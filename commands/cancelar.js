@@ -2,7 +2,6 @@ module.exports = {
 	name: 'cancelar',
     description: 'Cancela alguém do server por motivos completamente plausíveis',
     usage: '<usuario>',
-    tag: 'mensagem',
     only_dev: false,
 	execute(message, args) {
         if (!message.mentions.users.size) {

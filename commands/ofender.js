@@ -3,7 +3,6 @@ module.exports = {
     description: 'ofende profundamente alguém do server',
     usage: '<usuario>',
     only_dev: false,
-    tag: 'mensagem',
 	execute(message, args) {
         if (!message.mentions.users.size) {
             return message.channel.send(`Você precisa mencionar alguém com "@" para ser cancelado!`);

@@ -2,7 +2,6 @@ module.exports = {
 	name: 'expulsar',
     description: 'Inicia uma votação para expulsar um usuário do server (INCOMPLETO)',
     only_dev: true,
-    tag: 'server',
 	execute(message, args) {
         if (!message.mentions.users.size) {
             return message.reply('você precisa mencionar alguém com "@" se quiser expulsar!');

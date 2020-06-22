@@ -3,7 +3,6 @@ module.exports = {
     description: 'Exclui o número de mensagens passadas por parâmetro',
     usage: '<numero de mensagens a serem excluidas>',
     only_dev: false,
-    tag: 'server',
 	execute(message, args) {
 		const amount = parseInt(args[0]) + 1;
     

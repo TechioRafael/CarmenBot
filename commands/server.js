@@ -3,7 +3,6 @@ module.exports = {
 	name: 'server',
 	description: 'Retorna algumas coisinhas sobre o server',
 	only_dev: false,
-	tag: 'server',
 	execute(message, args) {
 		const embed = new Discord.MessageEmbed()
 		.setColor('#FFA500')

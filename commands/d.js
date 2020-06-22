@@ -4,7 +4,6 @@ module.exports = {
     description: 'Rola um dado que gera um número aleatório com base ',
     usage: '!d <lados (valor padrão 6)>',
     only_dev: false,
-    tag: 'utilidade',
 	execute(message, args) {
         const embed = new Discord.MessageEmbed()
         .setColor('#FFA500')
